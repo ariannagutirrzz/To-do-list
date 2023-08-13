@@ -1,8 +1,9 @@
 
+
 function TodoCounter ({total,completed}){
     return (
         <h1> 
-            Has completado {completed} de {total} ToDo's
+                You completed {completed} of {total} ToDo's
         </h1>
     )
 }

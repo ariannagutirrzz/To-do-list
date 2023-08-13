@@ -1,9 +1,9 @@
-import { TodoCounter } from './TodoCounter';
-import { TodoSearch  } from './TodoSearch';
-import { TodoList } from './TodoList'
-import { TodoItem } from './TodoItem';
-import { TodoCreateButton } from './TodoCreateButton';
-import './App.css';
+import { TodoCounter } from './components/TodoElements/TodoCounter';
+import { TodoSearch  } from './components/TodoElements/TodoSearch';
+import { TodoList } from './components/Task/TodoList'
+import { TodoItem } from './components/Task/TodoItem';
+import { CreateButton } from './components/Buttons/CreateButton';
+// import Modal from 'react-modal';
 import React from 'react';
 
 const defaultTodos = [
@@ -15,8 +15,7 @@ const defaultTodos = [
 
 function App() {
   return (
-    <React.Fragment>
-  
+    <>
       <TodoCounter completed ={9} total={12} />
       <TodoSearch />
 
@@ -30,9 +29,8 @@ function App() {
         ))}
       </TodoList>
 
-      <TodoCreateButton/>
-
-    </React.Fragment>
+      <CreateButton/>
+    </>
   );
 }
 
