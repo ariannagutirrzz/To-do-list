@@ -4,7 +4,7 @@ import { FaCheck } from "react-icons/fa";
 
 function TodoItem(props) {
   return (
-    <li className="item">
+    <li className={`item ${props.completed && "item task-completed"}`}>
       <div className="icon-container">
         <FaCheck className="icon" />
 

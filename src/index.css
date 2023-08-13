@@ -41,6 +41,16 @@ h1 {
   background-color: #394867;
   margin: 10px 0;
   border-radius: 20px;
+  font-size: 20px;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: var(--primary);
+}
+
+.icon-completed {
+  color: green;
 }
 
 .icon {

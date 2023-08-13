@@ -9,8 +9,8 @@ import React from 'react';
 const defaultTodos = [
   {text: "Hacer pasta", completed: false},
   {text: "Ir al gym", completed: true},
-  {text: "Saltar la cuerda", completed: true},
-  {text: "Escuchar a milo j", completed: false},
+  {text: "Saltar la cuerda", completed: false},
+  {text: "Escuchar a milo j", completed: true},
 ]
 
 function App() {
