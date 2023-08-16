@@ -7,11 +7,11 @@ import { CreateButton } from "./components/Buttons/CreateButton";
 import React from "react";
 
 const defaultTodos = [
-  { text: "Hacer pasta", completed: false },
-  { text: "Ir al gym", completed: true },
-  { text: "Saltar la cuerda", completed: false },
-  { text: "Escuchar a milo j", completed: true },
-  { text: "gastar dineró", completed: true },
+  { text: "Cook", completed: false },
+  { text: "Go to the gym", completed: true },
+  { text: "Jump the rope", completed: false },
+  { text: "Listen to milo j", completed: true },
+  { text: "Make money", completed: true },
 ];
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   // USE STATE FOR INPUT
 
   const [searchValue, setValueSearch] = React.useState("");
-  console.log("The user wrote " + searchValue);
+
 
   const searchingTodos = todos.filter((todo) => {
     const todoText = removeAccents(todo.text.toLowerCase())
@@ -34,6 +34,28 @@ function App() {
 
   function removeAccents(text) {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  const completeTodo = (text) => {
+    const newTodos = [...todos]
+    const todoIndex = newTodos.findIndex( 
+      (todo) => todo.text == text
+    );
+
+    console.log(todoIndex)
+    let completed = newTodos[todoIndex].completed;
+    newTodos[todoIndex].completed = !completed;
+    setTodos(newTodos);
+    console.log(newTodos)
+  }
+
+  const deleteTodo = (text) => {
+    const newTodos = [...todos]
+    const todoIndex = newTodos.findIndex( 
+      (todo) => todo.text == text
+    );
+    newTodos.splice(todoIndex,1)
+    setTodos(newTodos)
   }
 
   return (
@@ -47,6 +69,8 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onComplete={() => completeTodo(todo.text)}
+            onDelete={() => deleteTodo(todo.text)}
           />
         ))}
       </TodoList>
