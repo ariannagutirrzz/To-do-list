@@ -11,8 +11,7 @@ const defaultTodos = [
   { text: "Ir al gym", completed: true },
   { text: "Saltar la cuerda", completed: false },
   { text: "Escuchar a milo j", completed: true },
-  { text: "gastar dinero", completed: true },
-  { text: "gastar ", completed: false },
+  { text: "gastar dineró", completed: true },
 ];
 
 function App() {
@@ -27,13 +26,23 @@ function App() {
   const [searchValue, setValueSearch] = React.useState("");
   console.log("The user wrote " + searchValue);
 
+  const searchingTodos = todos.filter((todo) => {
+    const todoText = removeAccents(todo.text.toLowerCase())
+    const searchText = removeAccents(searchValue.toLocaleLowerCase());
+    return todoText.includes(searchText);
+  })
+
+  function removeAccents(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
   return (
     <>
       <TodoCounter completed={completedTodos} total={totalTodos} />
       <TodoSearch searchValue={searchValue} setValueSearch={setValueSearch} />
 
       <TodoList>
-        {defaultTodos.map((todo) => (
+        {searchingTodos.map((todo) => (
           <TodoItem
             key={todo.text}
             text={todo.text}

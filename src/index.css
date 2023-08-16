@@ -27,10 +27,10 @@ h1 {
   font-size: 28px;
 }
 
-.search {
+/* .search {
   border-radius: 30px;
   display: none;
-}
+} */
 
 .item {
   display: flex;
