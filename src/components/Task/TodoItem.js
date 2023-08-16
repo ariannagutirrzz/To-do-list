@@ -6,13 +6,13 @@ function TodoItem(props) {
   return (
     <li className={`item ${props.completed && "item task-completed"}`}>
       <div className="icon-container">
-        <FaCheck className="icon" />
+        <FaCheck className="icon check" />
 
       </div>
       <p>{props.text}</p>
 
       <div className="icon-container">
-        <VscChromeClose className="right-icon icon" />
+        <VscChromeClose className="right-icon icon closed" />
       </div>
     </li>
   );
