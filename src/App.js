@@ -6,25 +6,36 @@ import { CreateButton } from "./components/Buttons/CreateButton";
 // import Modal from 'react-modal';
 import React from "react";
 
-const defaultTodos = [
-  { text: "Cook", completed: false },
-  { text: "Go to the gym", completed: true },
-  { text: "Jump the rope", completed: false },
-  { text: "Listen to milo j", completed: true },
-  { text: "Make money", completed: true },
-];
+// const defaultTodos = [
+//   { text: "Cook", completed: false },
+//   { text: "Go to the gym", completed: true },
+//   { text: "Jump the rope", completed: false },
+//   { text: "Listen to milo j", completed: true },
+//   { text: "Make money", completed: true },
+// ];
+
+// localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
+// localStorage.removeItem('TODOS_V1');
 
 function App() {
 
-  // USE STATES (HOOKS)
+  const localStorageTodos = localStorage.getItem('TODOS_V1')
 
-  const [todos, setTodos] = React.useState(defaultTodos);
+  let parsedTodos;
+
+  if (!localStorageTodos) {
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+  // USE STATES (HOOKS)
+  const [todos, setTodos] = React.useState(parsedTodos);
+  
+  // USE STATE FOR INPUT
+  const [searchValue, setValueSearch] = React.useState("");
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
   const totalTodos = todos.length;
-  // USE STATE FOR INPUT
-
-  const [searchValue, setValueSearch] = React.useState("");
-
 
   const searchingTodos = todos.filter((todo) => {
     const todoText = removeAccents(todo.text.toLowerCase())
@@ -36,18 +47,23 @@ function App() {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem("TODOS_V1", JSON.stringify(newTodos))
+    setTodos(newTodos);
+  }
+
   const completeTodo = (text) => {
     const newTodos = [...todos]
     const todoIndex = newTodos.findIndex( 
-      (todo) => todo.text == text
+      (todo) => todo.text === text
     );
+    newTodos[todoIndex].completed = true;
+    saveTodos(newTodos);
 
-    console.log(todoIndex)
     let completed = newTodos[todoIndex].completed;
     newTodos[todoIndex].completed = !completed;
-    setTodos(newTodos);
-    console.log(newTodos)
-  }
+    saveTodos(newTodos);
+  }   
 
   const deleteTodo = (text) => {
     const newTodos = [...todos]
@@ -55,7 +71,7 @@ function App() {
       (todo) => todo.text == text
     );
     newTodos.splice(todoIndex,1)
-    setTodos(newTodos)
+    saveTodos(newTodos)
   }
 
   return (
@@ -78,6 +94,6 @@ function App() {
       <CreateButton />
     </>
   );
-}
+        }
 
 export default App;
