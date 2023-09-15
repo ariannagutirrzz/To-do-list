@@ -3,6 +3,7 @@ import { TodoSearch } from "./components/TodoElements/TodoSearch";
 import { TodoList } from "./components/Task/TodoList";
 import { TodoItem } from "./components/Task/TodoItem";
 import { CreateButton } from "./components/Buttons/CreateButton";
+import { useLocalStage } from "./hooks/useLocalStorage";
 // import Modal from 'react-modal';
 import React from "react";
 
@@ -17,20 +18,10 @@ import React from "react";
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
 // localStorage.removeItem('TODOS_V1');
 
+
 function App() {
-
-  const localStorageTodos = localStorage.getItem('TODOS_V1')
-
-  let parsedTodos;
-
-  if (!localStorageTodos) {
-    localStorage.setItem('TODOS_V1', JSON.stringify([]));
-    parsedTodos = [];
-  } else {
-    parsedTodos = JSON.parse(localStorageTodos);
-  }
-  // USE STATES (HOOKS)
-  const [todos, setTodos] = React.useState(parsedTodos);
+ 
+  const [todos, saveTodos] = useLocalStage("TODOS_V1", []);
   
   // USE STATE FOR INPUT
   const [searchValue, setValueSearch] = React.useState("");
@@ -47,18 +38,12 @@ function App() {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
-  const saveTodos = (newTodos) => {
-    localStorage.setItem("TODOS_V1", JSON.stringify(newTodos))
-    setTodos(newTodos);
-  }
 
   const completeTodo = (text) => {
     const newTodos = [...todos]
     const todoIndex = newTodos.findIndex( 
       (todo) => todo.text === text
     );
-    newTodos[todoIndex].completed = true;
-    saveTodos(newTodos);
 
     let completed = newTodos[todoIndex].completed;
     newTodos[todoIndex].completed = !completed;
@@ -94,6 +79,8 @@ function App() {
       <CreateButton />
     </>
   );
-        }
+
+}
 
 export default App;
+z
