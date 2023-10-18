@@ -7,26 +7,34 @@ import { useLocalStage } from "./hooks/useLocalStorage";
 // import Modal from 'react-modal';
 import React from "react";
 
-// const defaultTodos = [
-//   { text: "Cook", completed: false },
-//   { text: "Go to the gym", completed: true },
-//   { text: "Jump the rope", completed: false },
-//   { text: "Listen to milo j", completed: true },
-//   { text: "Make money", completed: true },
-// ];
-
-// localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
-// localStorage.removeItem('TODOS_V1');
+const defaultTodos = [
+  { text: "Cook", completed: false },
+  { text: "Go to the gym", completed: true },
+  { text: "Jump the rope", completed: false },
+  { text: "Listen to milo j", completed: true },
+  { text: "Make money", completed: true },
+];
 
 
 function App() {
+<<<<<<< HEAD
  
   const [todos, saveTodos] = useLocalStage("TODOS_V1", []);
   
   // USE STATE FOR INPUT
   const [searchValue, setValueSearch] = React.useState("");
+=======
+
+  // USE STATES (HOOKS)
+
+  const [todos, setTodos] = React.useState(defaultTodos);
+>>>>>>> parent of 042891f (created: localStorage)
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
   const totalTodos = todos.length;
+  // USE STATE FOR INPUT
+
+  const [searchValue, setValueSearch] = React.useState("");
+
 
   const searchingTodos = todos.filter((todo) => {
     const todoText = removeAccents(todo.text.toLowerCase())
@@ -38,17 +46,22 @@ function App() {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 042891f (created: localStorage)
   const completeTodo = (text) => {
     const newTodos = [...todos]
     const todoIndex = newTodos.findIndex( 
-      (todo) => todo.text === text
+      (todo) => todo.text == text
     );
 
+    console.log(todoIndex)
     let completed = newTodos[todoIndex].completed;
     newTodos[todoIndex].completed = !completed;
-    saveTodos(newTodos);
-  }   
+    setTodos(newTodos);
+    console.log(newTodos)
+  }
 
   const deleteTodo = (text) => {
     const newTodos = [...todos]
@@ -56,7 +69,7 @@ function App() {
       (todo) => todo.text == text
     );
     newTodos.splice(todoIndex,1)
-    saveTodos(newTodos)
+    setTodos(newTodos)
   }
 
   return (
@@ -79,7 +92,10 @@ function App() {
       <CreateButton />
     </>
   );
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 042891f (created: localStorage)
 }
 
 export default App;
